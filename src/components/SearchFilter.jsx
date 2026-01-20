@@ -7,8 +7,7 @@ import {
     IconButton,
     Chip,
     Autocomplete,
-    Drawer,
-    InputLabel
+    Drawer
 } from '@mui/material';
 import { Close, Add } from '@mui/icons-material';
 
@@ -24,26 +23,46 @@ const mockOptions = [
     'Option 1', 'Option 2', 'Option 3'
 ];
 
-const FilterField = ({ label, placeholder }) => (
-    <Box sx={{ mb: 0 }}>
-        <InputLabel shrink sx={{ fontSize: '0.85rem', color: 'text.secondary', fontWeight: 500, mb: 0.5 }}>
-            {label}
-        </InputLabel>
+const commonInputStyles = {
+    '& .MuiOutlinedInput-root': {
+        height: '60px',
+        padding: '12px',
+        gap: '8px',
+        borderRadius: '4px',
+        border: '1px solid #C4C4C4',
+        fontSize: '0.9rem',
+        display: 'flex',
+        alignItems: 'center',
+        '& fieldset': { border: 'none' },
+    },
+    '& input': {
+        textAlign: 'left',
+        fontFamily: 'Roboto',
+        fontWeight: 400,
+        fontSize: '14px',
+        lineHeight: '20px',
+    },
+    '& input::placeholder': {
+        textAlign: 'left',
+        fontFamily: 'Roboto',
+        fontWeight: 400,
+        fontSize: '14px',
+        lineHeight: '20px',
+        color: '#666666',
+        opacity: 1,
+    }
+};
+
+const FilterAutocomplete = ({ options, placeholder }) => (
+    <Box sx={{ flex: 1 }}>
         <Autocomplete
             freeSolo
-            options={mockOptions}
+            options={options}
             renderInput={(params) => (
                 <TextField
                     {...params}
                     placeholder={placeholder}
-                    sx={{
-                        '& .MuiOutlinedInput-root': {
-                            height: '40px',
-                            padding: '0 8px',
-                            fontSize: '0.9rem',
-                            bgcolor: 'white'
-                        }
-                    }}
+                    sx={commonInputStyles}
                 />
             )}
         />
@@ -67,7 +86,6 @@ const SearchFilter = ({ open, onClose }) => {
             }}
         >
             <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                {/* Main Content Area */}
                 <Box sx={{
                     width: '660px',
                     height: '748px',
@@ -78,7 +96,6 @@ const SearchFilter = ({ open, onClose }) => {
                     flexDirection: 'column',
                     overflowY: 'hidden'
                 }}>
-                    {/* Header */}
                     <Box sx={{
                         width: '580px',
                         height: '32px',
@@ -134,7 +151,6 @@ const SearchFilter = ({ open, onClose }) => {
                         </Box>
                     </Box>
 
-                    {/* Form Content */}
                     <Box sx={{ width: '580px' }}>
                         <Typography variant="subtitle1" sx={{
                             width: '311px',
@@ -229,35 +245,12 @@ const SearchFilter = ({ open, onClose }) => {
                             <Box sx={{ width: '580px', height: '60px', display: 'flex', gap: '16px' }}>
                                 <TextField
                                     fullWidth
-                                    placeholder="Must Have"
+                                    placeholder="Must Have "
                                     sx={{
+                                        ...commonInputStyles,
                                         '& .MuiOutlinedInput-root': {
-                                            width: '282px',
-                                            height: '60px',
-                                            padding: '12px',
-                                            gap: '8px',
-                                            borderRadius: '4px',
-                                            border: '1px solid #C4C4C4',
-                                            fontSize: '0.9rem',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            '& fieldset': { border: 'none' },
-                                        },
-                                        '& input': {
-                                            textAlign: 'left',
-                                            fontFamily: 'Roboto',
-                                            fontWeight: 400,
-                                            fontSize: '14px',
-                                            lineHeight: '20px',
-                                        },
-                                        '& input::placeholder': {
-                                            textAlign: 'left',
-                                            fontFamily: 'Roboto',
-                                            fontWeight: 400,
-                                            fontSize: '14px',
-                                            lineHeight: '20px',
-                                            color: '#666666',
-                                            opacity: 1,
+                                            ...commonInputStyles['& .MuiOutlinedInput-root'],
+                                            width: '282px'
                                         }
                                     }}
                                 />
@@ -265,33 +258,10 @@ const SearchFilter = ({ open, onClose }) => {
                                     fullWidth
                                     placeholder="Must Not Have"
                                     sx={{
+                                        ...commonInputStyles,
                                         '& .MuiOutlinedInput-root': {
-                                            width: '282px',
-                                            height: '60px',
-                                            padding: '12px',
-                                            gap: '8px',
-                                            borderRadius: '4px',
-                                            border: '1px solid #C4C4C4',
-                                            fontSize: '0.9rem',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            '& fieldset': { border: 'none' },
-                                        },
-                                        '& input': {
-                                            textAlign: 'left',
-                                            fontFamily: 'Roboto',
-                                            fontWeight: 400,
-                                            fontSize: '14px',
-                                            lineHeight: '20px',
-                                        },
-                                        '& input::placeholder': {
-                                            textAlign: 'left',
-                                            fontFamily: 'Roboto',
-                                            fontWeight: 400,
-                                            fontSize: '14px',
-                                            lineHeight: '20px',
-                                            color: '#666666',
-                                            opacity: 1,
+                                            ...commonInputStyles['& .MuiOutlinedInput-root'],
+                                            width: '282px'
                                         }
                                     }}
                                 />
@@ -311,258 +281,18 @@ const SearchFilter = ({ open, onClose }) => {
                         }}>Default Filters</Typography>
 
                         <Box sx={{ width: '580px', height: '60px', display: 'flex', gap: '16px', mb: 3 }}>
-                            <Box sx={{ flex: 1 }}>
-                                <Autocomplete
-                                    freeSolo
-                                    options={mockOptions}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            {...params}
-                                            placeholder="State"
-                                            sx={{
-                                                '& .MuiOutlinedInput-root': {
-                                                    height: '60px',
-                                                    padding: '12px',
-                                                    gap: '8px',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    borderRadius: '4px',
-                                                    border: '1px solid #C4C4C4',
-                                                    fontSize: '0.9rem',
-                                                    '& fieldset': { border: 'none' },
-                                                },
-                                                '& input': {
-                                                    textAlign: 'left',
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight: 400,
-                                                    fontSize: '14px',
-                                                    lineHeight: '20px',
-                                                },
-                                                '& input::placeholder': {
-                                                    textAlign: 'left',
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight: 400,
-                                                    fontSize: '14px',
-                                                    lineHeight: '20px',
-                                                    color: '#666666',
-                                                    opacity: 1,
-                                                }
-                                            }}
-                                        />
-                                    )}
-                                />
-                            </Box>
-                            <Box sx={{ flex: 1 }}>
-                                <Autocomplete
-                                    freeSolo
-                                    options={mockOptions}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            {...params}
-                                            placeholder="Location"
-                                            sx={{
-                                                '& .MuiOutlinedInput-root': {
-                                                    height: '60px',
-                                                    padding: '12px',
-                                                    gap: '8px',
-                                                    borderRadius: '4px',
-                                                    border: '1px solid #C4C4C4',
-                                                    fontSize: '0.9rem',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    '& fieldset': { border: 'none' },
-                                                },
-                                                '& input': {
-                                                    textAlign: 'left',
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight: 400,
-                                                    fontSize: '14px',
-                                                    lineHeight: '20px',
-                                                },
-                                                '& input::placeholder': {
-                                                    textAlign: 'left',
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight: 400,
-                                                    fontSize: '14px',
-                                                    lineHeight: '20px',
-                                                    color: '#666666',
-                                                    opacity: 1,
-                                                }
-                                            }}
-                                        />
-                                    )}
-                                />
-                            </Box>
+                            <FilterAutocomplete options={mockOptions} placeholder="State" />
+                            <FilterAutocomplete options={mockOptions} placeholder="Location" />
                         </Box>
 
                         <Box sx={{ width: '580px', height: '60px', display: 'flex', gap: '16px', mb: 3 }}>
-                            <Box sx={{ flex: 1 }}>
-                                <Autocomplete
-                                    freeSolo
-                                    options={mockOptions}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            {...params}
-                                            placeholder="Degree"
-                                            sx={{
-                                                '& .MuiOutlinedInput-root': {
-                                                    height: '60px',
-                                                    padding: '12px',
-                                                    gap: '8px',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    borderRadius: '4px',
-                                                    border: '1px solid #C4C4C4',
-                                                    fontSize: '0.9rem',
-                                                    '& fieldset': { border: 'none' },
-                                                },
-                                                '& input': {
-                                                    textAlign: 'left',
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight: 400,
-                                                    fontSize: '14px',
-                                                    lineHeight: '20px',
-                                                },
-                                                '& input::placeholder': {
-                                                    textAlign: 'left',
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight: 400,
-                                                    fontSize: '14px',
-                                                    lineHeight: '20px',
-                                                    color: '#666666',
-                                                    opacity: 1,
-                                                }
-                                            }}
-                                        />
-                                    )}
-                                />
-                            </Box>
-                            <Box sx={{ flex: 1 }}>
-                                <Autocomplete
-                                    freeSolo
-                                    options={mockOptions}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            {...params}
-                                            placeholder="Education"
-                                            sx={{
-                                                '& .MuiOutlinedInput-root': {
-                                                    height: '60px',
-                                                    padding: '12px',
-                                                    gap: '8px',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    borderRadius: '4px',
-                                                    border: '1px solid #C4C4C4',
-                                                    fontSize: '0.9rem',
-                                                    '& fieldset': { border: 'none' },
-                                                },
-                                                '& input': {
-                                                    textAlign: 'left',
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight: 400,
-                                                    fontSize: '14px',
-                                                    lineHeight: '20px',
-                                                },
-                                                '& input::placeholder': {
-                                                    textAlign: 'left',
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight: 400,
-                                                    fontSize: '14px',
-                                                    lineHeight: '20px',
-                                                    color: '#666666',
-                                                    opacity: 1,
-                                                }
-                                            }}
-                                        />
-                                    )}
-                                />
-                            </Box>
+                            <FilterAutocomplete options={mockOptions} placeholder="Degree" />
+                            <FilterAutocomplete options={mockOptions} placeholder="Education" />
                         </Box>
 
                         <Box sx={{ width: '580px', height: '60px', display: 'flex', gap: '16px', mb: 4 }}>
-                            <Box sx={{ flex: 1 }}>
-                                <Autocomplete
-                                    freeSolo
-                                    options={mockOptions}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            {...params}
-                                            placeholder="Min. Experience"
-                                            sx={{
-                                                '& .MuiOutlinedInput-root': {
-                                                    height: '60px',
-                                                    padding: '12px',
-                                                    gap: '8px',
-                                                    borderRadius: '4px',
-                                                    border: '1px solid #C4C4C4',
-                                                    fontSize: '0.9rem',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    '& fieldset': { border: 'none' },
-                                                },
-                                                '& input': {
-                                                    textAlign: 'left',
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight: 400,
-                                                    fontSize: '14px',
-                                                    lineHeight: '20px',
-                                                },
-                                                '& input::placeholder': {
-                                                    textAlign: 'left',
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight: 400,
-                                                    fontSize: '14px',
-                                                    lineHeight: '20px',
-                                                    color: '#666666',
-                                                    opacity: 1,
-                                                }
-                                            }}
-                                        />
-                                    )}
-                                />
-                            </Box>
-                            <Box sx={{ flex: 1 }}>
-                                <Autocomplete
-                                    freeSolo
-                                    options={mockOptions}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            {...params}
-                                            placeholder="Max. Experience"
-                                            sx={{
-                                                '& .MuiOutlinedInput-root': {
-                                                    height: '60px',
-                                                    padding: '12px',
-                                                    gap: '8px',
-                                                    borderRadius: '4px',
-                                                    border: '1px solid #C4C4C4',
-                                                    fontSize: '0.9rem',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    '& fieldset': { border: 'none' },
-                                                },
-                                                '& input': {
-                                                    textAlign: 'left',
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight: 400,
-                                                    fontSize: '14px',
-                                                    lineHeight: '20px',
-                                                },
-                                                '& input::placeholder': {
-                                                    textAlign: 'left',
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight: 400,
-                                                    fontSize: '14px',
-                                                    lineHeight: '20px',
-                                                    color: '#666666',
-                                                    opacity: 1,
-                                                }
-                                            }}
-                                        />
-                                    )}
-                                />
-                            </Box>
+                            <FilterAutocomplete options={mockOptions} placeholder="Min. Experience (Years)" />
+                            <FilterAutocomplete options={mockOptions} placeholder="Max. Experience (Years)" />
                         </Box>
 
                         <Box sx={{
@@ -646,7 +376,6 @@ const SearchFilter = ({ open, onClose }) => {
                     </Box>
                 </Box>
 
-                {/* Footer */}
                 <Box sx={{
                     width: '660px',
                     height: '120px',
@@ -680,10 +409,9 @@ const SearchFilter = ({ open, onClose }) => {
                             textTransform: 'none',
                             borderRadius: 0,
                             bgcolor: '#00000042',
-                            boxShadow: 'none', // often desired with "not rounded" and specific color to look flat
+                            boxShadow: 'none',
                             '&:hover': {
-                                bgcolor: '#00000042', // keep same color or let mui handle it. I'll stick to mui default hover or maybe specifically set it if it's a specific visual design. 
-                                // giving the specific hex usually suggests a static look. I'll leave hover default for now unless it looks weird.
+                                bgcolor: '#00000042',
                             }
                         }}
                     >

@@ -3,10 +3,10 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2', // Blue shade from the design header/buttons
+      main: '#1976d2', 
     },
     background: {
-      default: '#f5f5f5', // Light grey background
+      default: '#f5f5f5', 
     },
     text: {
       primary: '#333333',
@@ -16,14 +16,14 @@ const theme = createTheme({
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     button: {
-      textTransform: 'none', // Buttons in design look like they have normal casing or specific casing, avoiding all-caps default
+      textTransform: 'none', 
     },
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8, // Modern rounded corners
+          borderRadius: 8, 
         },
       },
     },

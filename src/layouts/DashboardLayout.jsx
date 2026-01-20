@@ -14,7 +14,7 @@ const DashboardLayout = ({ children }) => {
                     bgcolor: 'background.default',
                     p: 3,
                     minHeight: '100vh',
-                    width: 'calc(100% - 260px)', // adjust based on drawer width
+                    width: 'calc(100% - 260px)',
                 }}
             >
                 {children}
